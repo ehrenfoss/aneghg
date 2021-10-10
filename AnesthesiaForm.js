@@ -17,8 +17,6 @@ class AnesthesiaForm extends React.Component {
     }
 
     handleDefaultButton(myInput, myValue) {
-
-
       this.setState({[myInput]: myValue});
     }
   

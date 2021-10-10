@@ -76,32 +76,30 @@ class ProcedureImpact extends React.Component {
   }
 
   handleInduction(gasses) {
-    this.setState({induction_co2: this.calculateCo2(gasses)});
+    var impact = this.calculateCo2(gasses);
+    impact["phase"] = "Induction";
+    this.setState({induction_co2: impact});
     this.setState({total_co2: this.state.induction_co2.total + this.state.maintenance_co2.total});
   }
 
 
   handleMaintenance(gasses) {
-    this.setState({maintenance_co2: this.calculateCo2(gasses)});
+    var impact = this.calculateCo2(gasses);
+    impact["phase"] = "Maintenance";
+    this.setState({maintenance_co2: impact});
     this.setState({total_co2: this.state.induction_co2.total + this.state.maintenance_co2.total});
   }
 
   render() {
-    console.log('render');
-    console.log(this.state.co2);
-
     const dataSubmitted = this.state.total_co2 > 0;
     console.log(this.state.total_co2);
     console.log(dataSubmitted);
-    let chart;
-    if (dataSubmitted) {
-      console.log('draw chart');
-      chart = <ImpactChart
-        total={this.state.total_co2}
-        induction={this.state.induction_co2}
-        maintenance={this.state.maintenance_co2}
-      />
-    }
+
+    var i = this.state.induction_co2;
+    var m = this.state.maintenance_co2;
+
+    var data = [ this.state.induction_co2, this.state.maintenance_co2 ] ;
+
     return (
       <div>
         <AnesthesiaForm
@@ -112,7 +110,7 @@ class ProcedureImpact extends React.Component {
           type="Maintenance"
           state={this.state.maintenance}
           onPhaseSubmit={this.handleMaintenance} />
-        {chart}
+        <ImpactChart width={600} height={400} data={data}/>
       </div>
     );
   }

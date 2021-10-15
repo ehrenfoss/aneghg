@@ -36,26 +36,6 @@ class ProcedureImpact extends React.Component {
     this.handleMaintenance = this.handleMaintenance.bind(this);
   }
 
-  /*
-  cost:(inputs.sevo*(inputs.nitrous+inputs.oxygen+inputs.air)*60*200.056*0.47)/(2412*1.53)+(inputs.iso*(inputs.nitrous+inputs.oxygen+inputs.air)*60*184.5*0.25)/(2412*1.45)+(inputs.des*(inputs.nitrous+inputs.oxygen+inputs.air)*60*168.038*0.7)/(2412*1.44)+(inputs.halo*(inputs.nitrous+inputs.oxygen+inputs.air)*60*197.38*0.55)/(2412*1.875)+(inputs.prop*inputs.kg/1000*60*0.02)+(inputs.remi*inputs.kg/1000*60*64.84)+(inputs.dex*inputs.kg/1000*0.13)+(inputs.ket*0.07)+(inputs.lido*0.05)+(inputs.bupi*0.03)+(inputs.ropi*0.1)+(inputs.oxygen*60*0.003)+(inputs.nitrous*60*0.006),
-  
-  co2:inputs.sevo*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*8.32*130/1000+
-  inputs.iso*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*7.67*510/1000+
-  inputs.des*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*6.99*2540/1000+
-  inputs.halo*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*8.21*50/1000+
-  inputs.nitrous*60*1.83/1000*310+inputs.prop*inputs.kg*60/1000*0.000021
-  +inputs.remi*inputs.kg*60/1000*0.000103+inputs.dex*inputs.kg/1000*0.00301+
-  inputs.ket*0.00014+inputs.lido*0.0000286
-  +inputs.bupi*0.0000233+
-  inputs.ropi*0.000356,
-  
-  miles:1000/411*((inputs.sevo*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*8.32*130/1000+inputs.iso*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*7.67*510/1000+inputs.des*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*6.99*2540/1000+inputs.halo*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*8.21*50/1000+inputs.nitrous*60*1.83/1000*310+inputs.prop*inputs.kg*60/1000*0.000021+inputs.remi*inputs.kg*60/1000*0.000103+inputs.dex*inputs.kg/1000*0.00301+inputs.ket*0.00014+inputs.lido*0.0000286+inputs.bupi*0.0000233+inputs.ropi*0.000356)),
-  
-  kilometers:1000/255*((inputs.sevo*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*8.32*130/1000+inputs.iso*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*7.67*510/1000+inputs.des*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*6.99*2540/1000+inputs.halo*(inputs.nitrous+inputs.oxygen+inputs.air)/100*60*8.21*50/1000+inputs.nitrous*60*1.83/1000*310+inputs.prop*inputs.kg*60/1000*0.000021+inputs.remi*inputs.kg*60/1000*0.000103+inputs.dex*inputs.kg/1000*0.00301+inputs.ket*0.00014+inputs.lido*0.0000286+inputs.bupi*0.0000233+inputs.ropi*0.000356)), 
-  
-  usercost:(inputs.sevo*(inputs.nitrous+inputs.oxygen+inputs.air)*60*200.056*inputs.gasprice)/(2412*1.53)+(inputs.iso*(inputs.nitrous+inputs.oxygen+inputs.air)*60*184.5*inputs.gasprice)/(2412*1.45)+(inputs.des*(inputs.nitrous+inputs.oxygen+inputs.air)*60*168.038*inputs.gasprice)/(2412*1.44)+(inputs.halo*(inputs.nitrous+inputs.oxygen+inputs.air)*60*197.38*inputs.gasprice)/(2412*1.875)+(inputs.prop*inputs.kg/1000*60*inputs.propprice)+(inputs.remi*inputs.kg/1000*60*inputs.remiprice)+(inputs.dex*inputs.kg/1000*inputs.dexpice)+(inputs.ket*inputs.ketprice)+(inputs.lido*inputs.lidoprice)+(inputs.bupi*inputs.bupiprice)+(inputs.ropi*inputs.ropiprice)+(inputs.oxygen*60*inputs.oxygenprice)+(inputs.nitrous*60*inputs.n2oprice),
-*/
-
   calculateCo2(gasses) {
     console.log(gasses);
     var gas_vol = (gasses.n2o_l_min + gasses.air_l_min + gasses.o2_l_min) * gasses.duration;

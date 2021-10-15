@@ -60,7 +60,7 @@ class ImpactChart extends React.Component {
             .domain([0, d3.max(dataset, function (d) { return d3.max(d, function (d) { return d.y0 + d.y; }); })])
             .range([height, 0]);
 
-        var colors = ["b33040", "#d25c4d", "#f2b447", "#d9d574"];
+        var colors = ["#b33040", "#d25c4d", "#f2b447", "#d9d574"];
 
 
         // Define and draw axes
@@ -130,10 +130,10 @@ class ImpactChart extends React.Component {
             .style("text-anchor", "start")
             .text(function (d, i) {
                 switch (i) {
-                    case 0: return "N2O";
-                    case 1: return "Sevo";
-                    case 2: return "Iso";
-                    case 3: return "Des";
+                    case 0: return "Des";
+                    case 1: return "Iso";
+                    case 2: return "Sevo";
+                    case 3: return "N2O";
                 }
             });
 

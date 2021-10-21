@@ -81,7 +81,7 @@ class ProcedureImpact extends React.Component {
     var data = [ this.state.induction_co2, this.state.maintenance_co2 ] ;
 
     return (
-      <div>
+      <div class="mainDiv">
         <AnesthesiaForm
           type="Induction"
           state={this.state.induction}
@@ -90,7 +90,7 @@ class ProcedureImpact extends React.Component {
           type="Maintenance"
           state={this.state.maintenance}
           onPhaseSubmit={this.handleMaintenance} />
-        <ImpactChart width={600} height={400} data={data}/>
+        <ImpactChart total={this.state.total_co2} data={data}/>
       </div>
     );
   }

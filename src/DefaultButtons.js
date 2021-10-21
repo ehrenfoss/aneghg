@@ -17,11 +17,11 @@ class DefaultButtons extends React.Component {
     render() {
         const values = this.props.values
         return (
-            <span>
+            <div className="defaultButtons">
             {values.map((d) =>
                 <button onClick={this.changeHandler} value={d}>{d}</button>
             )}
-            </span>
+            </div>
             
         )
     }

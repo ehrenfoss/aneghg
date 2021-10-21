@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.mainDiv {
+  background-color: white;
+  height: 50vh;
+  width: 100%;
+  text-align: left;
+}
+
+.anesthesiaForm {
+  margin: 10px;
+}
+
+label {
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+td {
+  vertical-align:top;
+}

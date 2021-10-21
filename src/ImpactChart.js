@@ -7,14 +7,26 @@ class ImpactChart extends React.Component {
     constructor(props) {
         super(props);
         this.drawChart = this.drawChart.bind(this);
+        this.chartRef = React.createRef();
     }
 
     componentDidMount() {
-        this.drawChart();
+        let width = this.getWidth();
+        let height = this.getHeight();
+        this.setState({width: width, height: height}, ()=> {
+            this.drawChart();
+        });
     }
 
     componentDidUpdate() {
         this.drawChart();
+    }
+
+    getWidth(){
+        return this.chartRef.current.parentElement.offsetWidth;
+    }
+    getHeight(){
+        return this.chartRef.current.parentElement.offsetHeight;
     }
 
     drawChart() {
@@ -25,14 +37,16 @@ class ImpactChart extends React.Component {
         console.log(data);
         // Setup svg using Bostock's margin convention
 
-        var margin = { top: 20, right: 160, bottom: 35, left: 50 };
+        var margin = { top: 20, right: 80, bottom: 35, left: 25 };
 
-        var width = 960 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
+        var width = this.state.width - margin.left - margin.right;
+        var height = 500 - margin.top - margin.bottom;
 
-        d3.select(node).selectAll("*").remove();
+        console.log('w ' + width.toString());
 
-        var svg = d3.select(node)
+        d3.select(this.chartRef.current).selectAll("*").remove();
+
+        var svg = d3.select(this.chartRef.current)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
@@ -160,8 +174,11 @@ class ImpactChart extends React.Component {
 
     render() {
         return (
-            <svg ref={node => this.node = node}>
-            </svg>
+            <div className="anesthesiaForm">
+                <h1>Your procedure emitted the equivalent of <label>{Math.round(this.props.total*100)/100} kg co2</label></h1>
+                <svg ref={this.chartRef}>
+                </svg>
+            </div>
         )
     }
 }

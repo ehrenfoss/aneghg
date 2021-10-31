@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import DefaultButtons from './DefaultButtons.js'
+import NumberInput from './NumberInput.js'
 
 class AnesthesiaForm extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class AnesthesiaForm extends React.Component {
     this.state = this.props.state;
 
     this.handleSubmit = this.phaseSubmit.bind(this);
-    this.handleDefaultButton = this.handleDefaultButton.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
   phaseSubmit(event) {
@@ -16,8 +17,11 @@ class AnesthesiaForm extends React.Component {
     this.props.onPhaseSubmit(this.state)
   }
 
-  handleDefaultButton(myInput, myValue) {
-    this.setState({ [myInput]: myValue });
+  handleInput(myInput, myValue) {
+    myValue = myValue.replace(/^\D*\.?\D*$/, '');
+    // dirty but not sure how to pass state upward without rerender
+    this.state[myInput] = myValue;
+    this.props.onPhaseSubmit(this.state);
   }
 
   render() {
@@ -38,61 +42,51 @@ class AnesthesiaForm extends React.Component {
                 <label>Duration</label>
               </td>
               <td>
-              <label><input type="number" value={this.state.duration}
-                    onChange={event => this.setState({ duration: event.target.value.replace(/^\D*\.?\D*$/, '') })} /> Min</label>
+                <NumberInput myInput="duration" label="Min" onChange={this.handleInput} value={this.state.duration} />
               </td>
-              <td><DefaultButtons myInput="duration" onClick={this.handleDefaultButton} values={durationOpts} /></td>
+              <td><DefaultButtons myInput="duration" onClick={this.handleInput} values={durationOpts} /></td>
             </tr>
             <tr>
               <td>
                 <label>N20</label>
                 </td><td>
-                <label><input type="number" value={this.state.n2o_l_min}
-                    onChange={event => this.setState({ n2o_l_min: event.target.value.replace(/^\D*\.?\D*$/, '') })} /> L/min</label>
+                <NumberInput myInput="n2o_l_min" label="L/min" onChange={this.handleInput} value={this.state.n2o_l_min} />
               </td>
-              <td><DefaultButtons myInput="n2o_l_min" onClick={this.handleDefaultButton} values={[2, 4, 6]} /></td>
+              <td><DefaultButtons myInput="n2o_l_min" onClick={this.handleInput} values={[2, 4, 6]} /></td>
             </tr>
             <tr>
               <td>
                 <label>
                   O2</label>
                   </td><td>
-                  <label><input type="number" value={this.state.o2_l_min}
-                    onChange={event => this.setState({ o2_l_min: event.target.value.replace(/^\D*\.?\D*$/, '') })} /> L/min</label>
-                
+                  <NumberInput myInput="o2_l_min" label="L/min" onChange={this.handleInput} value={this.state.o2_l_min} />                
               </td>
-              <td><DefaultButtons myInput="o2_l_min" onClick={this.handleDefaultButton} values={[4, 6, 8]} /></td>
+              <td><DefaultButtons myInput="o2_l_min" onClick={this.handleInput} values={[4, 6, 8]} /></td>
             </tr>
             <tr>
               <td>
                 <label> Air</label>
                   </td><td>
-                  <label><input type="number" value={this.state.air_l_min}
-                    onChange={event => this.setState({ air_l_min: event.target.value.replace(/^\D*\.?\D*$/, '') })} /> L/min</label>
-                
+                  <NumberInput myInput="air_l_min" label="L/min" onChange={this.handleInput} value={this.state.air_l_min} />                                
               </td>
-              <td><DefaultButtons myInput="air_l_min" onClick={this.handleDefaultButton} values={[1, 2]} /></td>
+              <td><DefaultButtons myInput="air_l_min" onClick={this.handleInput} values={[1, 2]} /></td>
             </tr>
             <tr>
               <td>
                 <label>Sevo</label>
                 </td><td>
-                <label><input type="number" value={this.state.sevo}
-                    onChange={event => this.setState({ sevo: event.target.value.replace(/^\D*\.?\D*$/, '') })} /> %</label>
-                
+                <NumberInput myInput="sevo" label="%" onChange={this.handleInput} value={this.state.sevo} />                                                
               </td>
-              <td><DefaultButtons myInput="sevo" onClick={this.handleDefaultButton} values={[1, 2, 3, 4, 5, 6, 7, 8]} /></td>
+              <td><DefaultButtons myInput="sevo" onClick={this.handleInput} values={[1, 2, 3, 4, 5, 6, 7, 8]} /></td>
             </tr>
             {title === "Maintenance" &&
               <tr>
               <td>
                 <label>Iso</label>
                 </td><td>
-                <label><input type="number" value={this.state.iso}
-                    onChange={event => this.setState({ iso: event.target.value.replace(/^\D*\.?\D*$/, '') })} /> %</label>
-                
+                <NumberInput myInput="iso" label="%" onChange={this.handleInput} value={this.state.iso} />                                                                
               </td>
-              <td><DefaultButtons myInput="iso" onClick={this.handleDefaultButton} values={[1, 2, 3, 4, 5, 6]} /></td>
+              <td><DefaultButtons myInput="iso" onClick={this.handleInput} values={[1, 2, 3, 4, 5, 6]} /></td>
             </tr>
             }
             {title === "Maintenance" && 
@@ -100,14 +94,12 @@ class AnesthesiaForm extends React.Component {
               <td>
               <label>Des</label>
               </td><td>
-              <label><input type ="number" value={this.state.des}
-              onChange={event => this.setState({des: event.target.value.replace(/^\D*\.?\D*$/,'')})}/> %</label>
+              <NumberInput myInput="des" label="%" onChange={this.handleInput} value={this.state.des} />                                                
               </td>
-              <td><DefaultButtons myInput="des" onClick={this.handleDefaultButton} values={[2,4,6,8,10,12,14,16]} /></td>
+              <td><DefaultButtons myInput="des" onClick={this.handleInput} values={[2,4,6,8,10,12,14,16]} /></td>
             </tr>
             }
           </table>
-          <input className="lg_button" type="submit" value="Submit" />
         </form>
       </div>
     );

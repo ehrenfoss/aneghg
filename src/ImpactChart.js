@@ -20,6 +20,7 @@ class ImpactChart extends React.Component {
 
     componentDidUpdate() {
         this.drawChart();
+        this.render();
     }
 
     getWidth(){
@@ -33,16 +34,12 @@ class ImpactChart extends React.Component {
         const node = this.node;
         const data = this.props.data;
 
-        console.log('chart');
-        console.log(data);
         // Setup svg using Bostock's margin convention
 
-        var margin = { top: 20, right: 80, bottom: 35, left: 25 };
+        var margin = { top: 20, right: 80, bottom: 35, left: 50 };
 
         var width = this.state.width - margin.left - margin.right;
         var height = 500 - margin.top - margin.bottom;
-
-        console.log('w ' + width.toString());
 
         d3.select(this.chartRef.current).selectAll("*").remove();
 
@@ -68,13 +65,11 @@ class ImpactChart extends React.Component {
             .domain(dataset[0].map(function (d) { return d.x; }))
             .rangeRoundBands([10, width - 10], 0.02);
 
-        console.log(dataset);
-
         var y = d3.scale.linear()
             .domain([0, d3.max(dataset, function (d) { return d3.max(d, function (d) { return d.y0 + d.y; }); })])
             .range([height, 0]);
 
-        var colors = ["#b33040", "#d25c4d", "#f2b447", "#d9d574"];
+        var colors = ["#55CDFC", "#F7A8B8", "#65DA69", "#F22D45"];
 
 
         // Define and draw axes
@@ -97,6 +92,7 @@ class ImpactChart extends React.Component {
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
+            .style({ 'stroke': 'black', 'fill': 'none', 'stroke-width': '1px'})
             .call(xAxis);
 
 
@@ -173,9 +169,13 @@ class ImpactChart extends React.Component {
 
 
     render() {
+        var kgs = Math.round(this.props.total*100)/100;
+        // 8.51 kgs per gallon, 6.5 mpg for semis, 1.60934 kms per mile
+        var kms = (this.props.total / 8.51) * 6.5 * 1.60934;
+        kms = Math.round(kms*100)/100;
         return (
             <div className="anesthesiaForm">
-                <h1>Your procedure emitted the equivalent of <label>{Math.round(this.props.total*100)/100} kg co2</label></h1>
+                <h1>Your procedure emitted the equivalent of <label>{kgs} kg co2, or driving a semi {kms} kilometers</label></h1>
                 <svg ref={this.chartRef}>
                 </svg>
             </div>

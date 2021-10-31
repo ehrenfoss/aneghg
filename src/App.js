@@ -51,34 +51,33 @@ class ProcedureImpact extends React.Component {
       iso: iso_kg,
       des: des_kg
     }
-    console.log(co2_kg);
     return co2_kg;
   }
 
   handleInduction(gasses) {
     var impact = this.calculateCo2(gasses);
     impact["phase"] = "Induction";
-    this.setState({induction_co2: impact});
-    this.setState({total_co2: this.state.induction_co2.total + this.state.maintenance_co2.total});
+    var total = this.state.maintenance_co2.total + impact.total;
+    this.setState({induction_co2: impact, total_co2: total});
   }
 
 
   handleMaintenance(gasses) {
     var impact = this.calculateCo2(gasses);
     impact["phase"] = "Maintenance";
-    this.setState({maintenance_co2: impact});
-    this.setState({total_co2: this.state.induction_co2.total + this.state.maintenance_co2.total});
+    var total = this.state.induction_co2.total + impact.total;
+    this.setState({maintenance_co2: impact, total_co2: total});
   }
 
   render() {
     const dataSubmitted = this.state.total_co2 > 0;
-    console.log(this.state.total_co2);
-    console.log(dataSubmitted);
 
     var i = this.state.induction_co2;
     var m = this.state.maintenance_co2;
 
     var data = [ this.state.induction_co2, this.state.maintenance_co2 ] ;
+
+    console.log(data);
 
     return (
       <div class="mainDiv">

@@ -55,7 +55,11 @@ class ImpactChart extends React.Component {
         // Transpose the data into layers
         var dataset = d3.layout.stack()(["n2o", "sevo", "iso", "des"].map(function (gas) {
             return data.map(function (d) {
-                return { x: d.phase, y: +d[gas] };
+                var yGas = 0;
+                if (typeof d[gas] === 'undefined') { yGas = 0; }
+                else { yGas = d[gas]; }
+                
+                return { x: d.phase, y: +yGas };
             });
         }));
 

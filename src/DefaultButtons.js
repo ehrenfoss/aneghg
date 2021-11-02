@@ -9,6 +9,7 @@ class DefaultButtons extends React.Component {
     }
 
     changeHandler(e) {
+        e.preventDefault();
         if (typeof this.props.onClick === 'function') {
             this.props.onClick(this.props.myInput, e.target.value);
         }
@@ -16,13 +17,13 @@ class DefaultButtons extends React.Component {
 
     render() {
         const values = this.props.values
+
         return (
             <div className="defaultButtons">
             {values.map((d) =>
                 <button onClick={this.changeHandler} value={d}>{d}</button>
             )}
             </div>
-            
         )
     }
 }

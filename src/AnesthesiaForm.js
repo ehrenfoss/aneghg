@@ -6,27 +6,25 @@ import NumberInput from './NumberInput.js'
 class AnesthesiaForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.state;
-
-    this.handleSubmit = this.phaseSubmit.bind(this);
+    console.log('constructor');
+    console.log(this.props.gasses);
+    //this.state = this.props.gasses;
     this.handleInput = this.handleInput.bind(this);
-  }
-
-  phaseSubmit(event) {
-    event.preventDefault();
-    this.props.onPhaseSubmit(this.state)
   }
 
   handleInput(myInput, myValue) {
     myValue = myValue.replace(/^\D*\.?\D*$/, '');
-    // dirty but not sure how to pass state upward without rerender
-    this.state[myInput] = myValue;
-    this.props.onPhaseSubmit(this.state);
+    var gasses = this.props.gasses;
+    gasses[myInput] = myValue;
+    console.log('gasses');
+    console.log(gasses);
+    this.props.onPhaseSubmit(gasses);
   }
 
   render() {
     const title = this.props.type;
-    let durationOpts = []
+    
+    let durationOpts = [];
     if (title === "Induction") {
       durationOpts = [3, 5, 10, 15];
     } else {
@@ -42,32 +40,31 @@ class AnesthesiaForm extends React.Component {
                 <label>Duration</label>
               </td>
               <td>
-                <NumberInput myInput="duration" label="Min" onChange={this.handleInput} value={this.state.duration} />
+                <NumberInput phase={title} myInput="duration" label="Min" onChange={this.handleInput.bind(this)} value={this.props.gasses.duration} />
               </td>
-              <td><DefaultButtons myInput="duration" onClick={this.handleInput} values={durationOpts} /></td>
+              <td><DefaultButtons phase={title} myInput="duration" onClick={this.handleInput} values={durationOpts} /></td>
             </tr>
             <tr>
               <td>
                 <label>N20</label>
                 </td><td>
-                <NumberInput myInput="n2o_l_min" label="L/min" onChange={this.handleInput} value={this.state.n2o_l_min} />
+                <NumberInput myInput="n2o_l_min" label="L/min" onChange={this.handleInput} value={this.props.gasses.n2o_l_min} />
               </td>
               <td><DefaultButtons myInput="n2o_l_min" onClick={this.handleInput} values={[2, 4, 6]} /></td>
             </tr>
             <tr>
               <td>
-                <label>
-                  O2</label>
+                <label>O2</label>
                   </td><td>
-                  <NumberInput myInput="o2_l_min" label="L/min" onChange={this.handleInput} value={this.state.o2_l_min} />                
+                  <NumberInput myInput="o2_l_min" label="L/min" onChange={this.handleInput} value={this.props.gasses.o2_l_min} />                
               </td>
               <td><DefaultButtons myInput="o2_l_min" onClick={this.handleInput} values={[4, 6, 8]} /></td>
             </tr>
             <tr>
               <td>
-                <label> Air</label>
+                <label>Air</label>
                   </td><td>
-                  <NumberInput myInput="air_l_min" label="L/min" onChange={this.handleInput} value={this.state.air_l_min} />                                
+                  <NumberInput myInput="air_l_min" label="L/min" onChange={this.handleInput} value={this.props.gasses.air_l_min} />                                
               </td>
               <td><DefaultButtons myInput="air_l_min" onClick={this.handleInput} values={[1, 2]} /></td>
             </tr>
@@ -75,7 +72,7 @@ class AnesthesiaForm extends React.Component {
               <td>
                 <label>Sevo</label>
                 </td><td>
-                <NumberInput myInput="sevo" label="%" onChange={this.handleInput} value={this.state.sevo} />                                                
+                <NumberInput myInput="sevo" label="%" onChange={this.handleInput} value={this.props.gasses.sevo} />                                                
               </td>
               <td><DefaultButtons myInput="sevo" onClick={this.handleInput} values={[1, 2, 3, 4, 5, 6, 7, 8]} /></td>
             </tr>
@@ -84,7 +81,7 @@ class AnesthesiaForm extends React.Component {
               <td>
                 <label>Iso</label>
                 </td><td>
-                <NumberInput myInput="iso" label="%" onChange={this.handleInput} value={this.state.iso} />                                                                
+                <NumberInput myInput="iso" label="%" onChange={this.handleInput} value={this.props.gasses.iso} />                                                                
               </td>
               <td><DefaultButtons myInput="iso" onClick={this.handleInput} values={[1, 2, 3, 4, 5, 6]} /></td>
             </tr>
@@ -94,7 +91,7 @@ class AnesthesiaForm extends React.Component {
               <td>
               <label>Des</label>
               </td><td>
-              <NumberInput myInput="des" label="%" onChange={this.handleInput} value={this.state.des} />                                                
+              <NumberInput myInput="des" label="%" onChange={this.handleInput} value={this.props.gasses.des} />                                                
               </td>
               <td><DefaultButtons myInput="des" onClick={this.handleInput} values={[2,4,6,8,10,12,14,16]} /></td>
             </tr>

@@ -12,7 +12,7 @@ class ProcedureImpact extends React.Component {
 
     const initGasState = {
       duration: 0.0
-      ,n2o_l_min: 1.0
+      ,n2o_l_min: 0.0
       ,air_l_min: 0.0
       ,o2_l_min: 0.0
       ,des: 0.0
@@ -22,7 +22,7 @@ class ProcedureImpact extends React.Component {
 
     const initGasState2 = {
       duration: 0.0
-      ,n2o_l_min: 2.0
+      ,n2o_l_min: 0.0
       ,air_l_min: 0.0
       ,o2_l_min: 0.0
       ,des: 0.0

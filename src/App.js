@@ -2,7 +2,6 @@ import './App.css';
 import gasData from './gasses.js'
 import React from 'react';
 import AnesthesiaForm from './AnesthesiaForm.js'
-import MaintenanceForm from './MaintenanceForm.js'
 import ImpactChart from './ImpactChart.js'
 
 
